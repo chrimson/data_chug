@@ -6,14 +6,13 @@ import time
 import base64
 
 with open('config.json', 'r') as config_file:
-  config = json.load(config_file, 'r')
+  config = json.load(config_file)
 
-SC_URL = ''
-SC_UN = ''
-SC_PW = ''
+SC_URL = config['url']
+SC_UN = config['un']
+SC_PW = config['pw']
 
-
-DAYS_CAP = 5
+DAYS_CAP = config['days']
 
 today = dt.datetime.utcnow()
 year = today.year
@@ -42,7 +41,7 @@ download_headers.update({'Pragma': 'public',
                          'Content-Type': 'application/octet-stream',
                          'Content-Transfer-Encoding': 'binary'})
 
-start_time = str(time.time() - int(DAYS_CAP) * 86400)
+start_time = str(time.time() - DAYS_CAP * 86400)
 params = {'startTime': start_time,
           'filter': 'completed',
           'fields': 'name,id'}
@@ -53,11 +52,11 @@ response = requests.get('https://%s/rest/scanResult' % SC_URL,
                         headers = json_headers)
 scans = response.json()['response']
 
-scan_type in ['usable', 'manageable']:
+for scan_type in ['usable', 'manageable']:
 
   for scan in scans[scan_type]:
 
-    basename = ('%s_%s' % (scan['id', scan['name'])).replace(' ', '_').replace('/', '\\')
+    basename = ('%s_%s' % (scan['id'], scan['name'])).replace(' ', '_').replace('/', '\\')
     filename = '%s.zip' % basename
     download_headers['Content-Disposition'] = 'attachment; filename="%s"' % filename
 
