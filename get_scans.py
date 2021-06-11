@@ -1,4 +1,3 @@
-import datetime as dt
 import json
 import re
 import requests
@@ -13,13 +12,6 @@ SC_UN = config['un']
 SC_PW = config['pw']
 
 DAYS_CAP = config['days']
-
-today = dt.datetime.utcnow()
-year = today.year
-month = '{:02}'.format(today.month)
-#day
-#hour
-#minute
 
 login = '{"username": "%s", "password": "%s"}' % (SC_UN, SC_PW)
 
@@ -73,10 +65,6 @@ for scan_type in ['usable', 'manageable']:
 
     except:
       pass
-
-
-    # Save the file
-    # path_ext = '%s/%s/%s/%s' % (S3_PATH, year, month, day)
 
 requests.delete('https://%s/rest/token' % SC_URL,
                 verify = False,
