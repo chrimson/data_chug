@@ -1,4 +1,4 @@
-# sc_scans
+# data_chug
 ## Tenable.sc scan result download
 ```
 https://pypi.org/urllib3/1.21.1/#files
